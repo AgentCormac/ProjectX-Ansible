@@ -1,2 +1,3 @@
 # Install a role from the Ansible Galaxy
 - src: geerlingguy.java #Java
+- src: geerlingguy.jenkins #Jenkins
