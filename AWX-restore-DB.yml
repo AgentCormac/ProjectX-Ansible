@@ -1,4 +1,8 @@
----
+- name: AWX restore control machine DB
+  hosts: "{{ servers }}"
+  become: Yes
+  become_user: root
+
   - name: Stop a container
     docker_container:
       name: mycontainer
