@@ -1,0 +1,35 @@
+---
+  - name: Stop a container
+    docker_container:
+      name: mycontainer
+      state: stopped
+  
+  -name: Backup existing
+    copy:
+      src: /opt/awx/pgdocker/pgdata
+      dest: /opt/awx/pgdocker/pgdata-tmp
+
+  -name: Restore DB
+    copy:
+      src: /vagrant/awx/pgdocker/pgdata
+      dest: /opt/awx/pgdocker/pgdata
+
+  - name: Set permissions on data folder
+    file:
+      path: /opt/awx/pgdocker/pgdata
+      owner: polkitd
+      group: polkitd
+      state: directory recurse=yes
+
+  - name: Set permissions on DB files
+    shell: 'chgrp -R ssh_keys /opt/awx/pgdocker/pgdata/*'
+      
+  - name: Remove existing empty DB
+    file:
+      path: /opt/awx/pgdocker/pgdata-tmp
+      state: absent    
+
+  - name: Start Postgres container
+    docker_container:
+      name: postgres
+      state: started
