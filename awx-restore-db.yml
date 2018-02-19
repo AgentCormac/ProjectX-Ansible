@@ -3,9 +3,9 @@
   become: Yes
   become_user: root
 
-  - name: Stop a container
+  - name: Stop Postgres container
     docker_container:
-      name: mycontainer
+      name: postgres
       state: stopped
   
   -name: Backup existing
