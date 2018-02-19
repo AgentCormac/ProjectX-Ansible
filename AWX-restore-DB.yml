@@ -33,7 +33,32 @@
       path: /opt/awx/pgdocker/pgdata-tmp
       state: absent    
 
+  - name: Stop AWX_Web container
+    docker_container:
+      name: awx_web
+      state: stop
+
   - name: Start Postgres container
     docker_container:
       name: postgres
       state: started
+      
+  - name: Re-start cache container
+  docker_container:
+    name: memcached
+    state: restarted
+    
+  - name: Start rabbitmq container
+  docker_container:
+    name: rabitmq
+    state: restarted
+    
+  - name: Start AWX_Task container
+  docker_container:
+    name: awx_task
+    state: restarted
+    
+  - name: Start AWX_Web container
+  docker_container:
+    name: awx_web
+    state: started
