@@ -1,6 +1,11 @@
-- hosts: jenkins
+- name: Build CICD node
+  hosts: "{{ servers }}"
+  become: Yes
+  become_user: root
+
+  tasks:
   vars:
-    jenkins_hostname: jenkins.example.com
+    jenkins_hostname: cicd
   roles:
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
