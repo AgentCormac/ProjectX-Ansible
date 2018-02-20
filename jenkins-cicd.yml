@@ -2,7 +2,8 @@
 - name: Build Jenkins
   hosts: all
   vars:
-    jenkins_hostname: cicd
+    jenkins_hostname: 192.168.100.102
+    jenkins_home: /home/vagrant/jenkins
   roles:
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
