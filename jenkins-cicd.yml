@@ -1,6 +1,8 @@
-- hosts: cicd
+---
+- name: Build Jenkins
+  hosts: all
   vars:
-    jenkins_hostname: jenkins.example.com
+    jenkins_hostname: cicd
   roles:
     - role: geerlingguy.java
     - role: geerlingguy.jenkins
