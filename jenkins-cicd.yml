@@ -14,6 +14,11 @@
     - role: geerlingguy.jenkins
       become: true
   tasks:
+    - name: Add repository
+  yum_repository:
+    - name: Add epel repo
+      description: EPEL YUM repo
+      baseurl: https://download.fedoraproject.org/pub/epel/7/x86_64/
     - name: install basic packages
       action: >
         {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
@@ -21,7 +26,7 @@
         - vim
         - git
         - python
-        - python-mock
         - python-nose
         - python-coverage
         - pylint
+        - python-mock
