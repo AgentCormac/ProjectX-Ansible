@@ -19,6 +19,7 @@
         name: epel
           description: EPEL YUM repo
           baseurl: https://download.fedoraproject.org/pub/epel/7/x86_64/
+        state: present
     - name: install basic packages
       action: >
         {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
