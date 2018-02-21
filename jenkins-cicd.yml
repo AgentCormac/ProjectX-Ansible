@@ -4,6 +4,8 @@
   vars:
     jenkins_hostname: 192.168.100.102
     jenkins_home: /vagrant/jenkins
+    jenkins_plugins: [Cobertura, GitHub, Violations]
+    jenkins_plugins_state: present
   roles:
     - role: geerlingguy.java
       when: "ansible_os_family == 'RedHat'"
@@ -11,3 +13,15 @@
         - java-1.8.0-openjdk    
     - role: geerlingguy.jenkins
       become: true
+  tasks:
+    - name: install basic packages
+      action: >
+        {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+      with_items:
+        - vim
+        - git
+        - python
+        - python-mock
+        - python-nose
+        - python-coverage
+        - pylint
