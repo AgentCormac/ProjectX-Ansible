@@ -16,7 +16,6 @@
   tasks:
     - name: Add epel repository
       yum_repository:
-      name: epel
       description: EPEL YUM repo
       baseurl: https://download.fedoraproject.org/pub/epel/7/x86_64/
       state: present
