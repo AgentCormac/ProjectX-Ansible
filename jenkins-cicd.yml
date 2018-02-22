@@ -14,12 +14,14 @@
     - role: geerlingguy.jenkins
       become: true
   tasks:
-    - name: Add epel repository
+    - name: Add repository
       yum_repository:
-      description: EPEL YUM repo
-      baseurl: https://download.fedoraproject.org/pub/epel/7/x86_64/
-      state: present
-      - name: install basic packages
+        name: epel
+        description: EPEL YUM repo
+        baseurl: http://download.fedoraproject.org/pub/epel/7/x86_64/
+        gpgcheck: yes
+        gpgkey: https://archive.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+    - name: install basic packages
       yum: pkg={{item}} state=latest update_cache=yes
       with_items:
         - vim
@@ -27,15 +29,5 @@
         - python
         - python-nose
         - python-coverage
-    - name: install the latest version of pylint
-      yum:
-        name: pylint
-        state: latest
-        enablerepo: epel
-        disable_gpg_check: true
-    - name: install the latest version of python-mock
-      yum:
-        name: python-mock
-        state: latest
-        enablerepo: epel
-        disable_gpg_check: true
+        - pylint
+        - python-mock
