@@ -19,14 +19,23 @@
       description: EPEL YUM repo
       baseurl: https://download.fedoraproject.org/pub/epel/7/x86_64/
       state: present
-    - name: install basic packages
-      action: >
-        {{ ansible_pkg_mgr }} name={{ item }} state=present update_cache=yes
+      - name: install basic packages
+      yum: pkg={{item}} state=latest update_cache=yes
       with_items:
         - vim
         - git
         - python
         - python-nose
         - python-coverage
-        - pylint
-        - python-mock
+    - name: install the latest version of pylint
+      yum:
+        name: pylint
+        state: latest
+        enablerepo: epel
+        disable_gpg_check: true
+    - name: install the latest version of python-mock
+      yum:
+        name: python-mock
+        state: latest
+        enablerepo: epel
+        disable_gpg_check: true
