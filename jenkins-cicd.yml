@@ -3,7 +3,6 @@
   hosts: all
   vars:
     jenkins_hostname: 192.168.100.102
-    jenkins_home: /vagrant/jenkins
     jenkins_plugins: [Cobertura, GitHub, Violations]
     jenkins_plugins_state: present
   roles:
