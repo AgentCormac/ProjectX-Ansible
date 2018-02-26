@@ -34,5 +34,5 @@
       become: true
 
   post_tasks:
-    - name: Set permissions on DB files
+    - name: Restore Jenkins DB
       shell: /vagrant/shared/util/restore_jenkins_db.sh    
