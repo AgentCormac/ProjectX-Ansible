@@ -5,14 +5,8 @@
     jenkins_hostname: 192.168.100.102
     jenkins_plugins: [Cobertura, GitHub, Violations]
     jenkins_plugins_state: present
-  roles:
-    - role: geerlingguy.java
-      when: "ansible_os_family == 'RedHat'"
-      java_packages:
-        - java-1.8.0-openjdk    
-    - role: geerlingguy.jenkins
-      become: true
-  tasks:
+
+  pre_tasks:
     - name: Add repository
       yum_repository:
         name: epel
@@ -30,3 +24,15 @@
         - python-coverage
         - pylint
         - python-mock
+
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk    
+    - role: geerlingguy.jenkins
+      become: true
+
+  post_tasks:
+    - name: Set permissions on DB files
+      shell: /vagrant/shared/util/restore_jenkins_db.sh    
