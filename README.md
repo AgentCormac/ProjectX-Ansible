@@ -93,4 +93,12 @@ pylint -f parseable -d I0011,R0801 projectx_python | tee pylint.out
   
 Save and then select ***Build Now*** from the Build Project. Hopefully, the project will now build succesfully and display a blue ball agains the job in ***Build History***. this is beacuse there are a few lint issues that need cleaning up. Select the job number to see a bit more detail. it should show that there are 4 lint warnings. Drill down into the warnings to see what they are. you can clean these up by cloning the code base, modifying the code and pointing this job at your own repository. Re-run the job and the little blue ball should now be green.
 
+AWX configuration
+----------
+The above script is designed to be run from AWX (Ansible Tower). The script persists Jenkis data between CID node's destruction and recreation by Vagrant by copying and restoring the Jenkins home directory to the host backed shared drive, following the same pattern as for AWX persistence.
+
+Simply log into AWX (admin/admin) and creat a new inventory pointing at the CICD node (192.168.100.102). Create a project pointing at [ProjectX-Ansible](https://github.com/AgentCormac/ProjectX-Ansible), selecting ***Update on launch***. Add a new credential vagrant/vagrant. Add a new Job Template using the vagrant credential to run the jenkins-cicd.yml script from the CICD project against the CICD inventory.
+
+Run the job to build Jenkins on the CICD node. You can add a schedule to it if you like, the persistence scripts are indempotent, just like Ansible.
+
 Job done.
